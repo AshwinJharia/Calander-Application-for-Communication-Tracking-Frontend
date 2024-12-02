@@ -253,8 +253,21 @@ const UserDashboard = () => {
               rowSelectionModel={rowSelectionModel}
               sx={{
                 '& .MuiDataGrid-row:hover': {
-                  backgroundColor: 'rgba(142, 55, 215, 0.04)'
-                }
+                  backgroundColor: 'rgba(142, 55, 215, 0.1)',
+                  transition: 'background-color 0.3s ease'
+                },
+                '& .MuiDataGrid-cell': {
+                  borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+                  padding: '16px',
+                },
+                '& .MuiDataGrid-columnHeaders': {
+                  backgroundColor: '#6B8DD6',
+                  color: '#fff',
+                  fontWeight: '600',
+                },
+                '& .MuiDataGrid-footerContainer': {
+                  backgroundColor: '#f5f5f5',
+                },
               }}
             />
           </Box>
