@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { TextField, Button, Box } from "@mui/material";
-import axios from "axios";
+import { TextField, Button, Box, Paper, Typography, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +21,6 @@ const Login = () => {
         "http://localhost:5000/api/login",
         formData
       );
-      console.log(response)
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", response.data.role);
       navigate("/user-dashboard");
@@ -30,78 +30,136 @@ const Login = () => {
   };
 
   return (
-    <Box
-      sx={{
-        maxWidth: 400,
-        margin: "auto",
-        padding: 4,
-        backgroundColor: "#f9f9f9",
-        borderRadius: "8px",
-        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-        mt: 8,
-      }}
-    >
-      <div className="text-4xl font-extrabold capitalize underline mx-auto w-fit mb-6 text-center">
-        Login
-      </div>
-
-      <TextField
-        label="Email"
-        name="email"
-        fullWidth
-        margin="normal"
-        value={formData.email}
-        onChange={handleInputChange}
-        variant="outlined"
-      />
-      <TextField
-        label="Password"
-        name="password"
-        type="password"
-        fullWidth
-        margin="normal"
-        value={formData.password}
-        onChange={handleInputChange}
-        variant="outlined"
-      />
-      <Button
-        variant="contained"
-        fullWidth
-        onClick={handleLogin}
+    <Container component="main" maxWidth="xs">
+      <Paper
+        elevation={6}
         sx={{
-          marginTop: 3,
-          padding: "10px 0",
-          fontSize: "16px",
-          fontWeight: "bold",
-          backgroundColor: "#1976d2",
-          "&:hover": {
-            backgroundColor: "#1565c0",
-          },
+          marginTop: 8,
+          padding: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          background: 'linear-gradient(145deg, #ffffff, #f0f0f0)',
+          borderRadius: '15px',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        Login
-      </Button>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '5px',
+            background: 'linear-gradient(90deg, #2196f3, #e91e63)',
+          }}
+        />
+        
+        <Box sx={{ 
+          p: 2, 
+          borderRadius: '50%', 
+          bgcolor: '#1976d2',
+          mb: 2
+        }}>
+          <LockOutlinedIcon sx={{ color: 'white' }} />
+        </Box>
 
-      <div className="w-full mt-8 text-center">
-        <span className="text-md">Are you an admin?</span>
-        <button
-          onClick={() => navigate("/admin-login")}
-          className="bg-red-600 text-white py-2 px-4 rounded-md ml-4 hover:bg-red-700 transition-transform transform hover:scale-105"
+        <Typography component="h1" variant="h4" sx={{ mb: 4, fontWeight: 600, color: '#333' }}>
+          Welcome Back
+        </Typography>
+
+        <TextField
+          label="Email Address"
+          name="email"
+          fullWidth
+          margin="normal"
+          value={formData.email}
+          onChange={handleInputChange}
+          variant="outlined"
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              '&:hover fieldset': {
+                borderColor: '#1976d2',
+              },
+            },
+          }}
+        />
+
+        <TextField
+          label="Password"
+          name="password"
+          type="password"
+          fullWidth
+          margin="normal"
+          value={formData.password}
+          onChange={handleInputChange}
+          variant="outlined"
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              '&:hover fieldset': {
+                borderColor: '#1976d2',
+              },
+            },
+          }}
+        />
+
+        <Button
+          variant="contained"
+          fullWidth
+          onClick={handleLogin}
+          sx={{
+            mt: 3,
+            mb: 2,
+            py: 1.5,
+            fontSize: '1rem',
+            fontWeight: 600,
+            textTransform: 'none',
+            borderRadius: '8px',
+            background: 'linear-gradient(45deg, #1976d2, #2196f3)',
+            '&:hover': {
+              background: 'linear-gradient(45deg, #1565c0, #1976d2)',
+              transform: 'translateY(-2px)',
+              transition: 'all 0.3s',
+            },
+          }}
         >
-          Admin Login
-        </button>
-      </div>
+          Sign In
+        </Button>
 
-      <div className="w-full mt-6 text-center">
-  <span
-    onClick={() => navigate("/register")}
-    className="text-md text-blue-500 cursor-pointer hover:underline transition-all duration-200"
-  >
-    Don't have an account? <span className="font-semibold">Register now</span>
-  </span>
-</div>
+        <Box sx={{ mt: 3, width: '100%', textAlign: 'center' }}>
+          <Button
+            onClick={() => navigate("/admin-login")}
+            variant="outlined"
+            color="error"
+            sx={{
+              borderRadius: '8px',
+              textTransform: 'none',
+              '&:hover': {
+                transform: 'translateY(-2px)',
+                transition: 'all 0.3s',
+              },
+            }}
+          >
+            Admin Login
+          </Button>
+        </Box>
 
-    </Box>
+        <Typography 
+          sx={{ 
+            mt: 3, 
+            cursor: 'pointer',
+            color: '#1976d2',
+            '&:hover': {
+              textDecoration: 'underline',
+            },
+          }}
+          onClick={() => navigate("/register")}
+        >
+          Don't have an account? <span style={{ fontWeight: 600 }}>Sign Up</span>
+        </Typography>
+      </Paper>
+    </Container>
   );
 };
 

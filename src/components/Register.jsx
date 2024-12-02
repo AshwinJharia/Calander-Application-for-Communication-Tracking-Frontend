@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { TextField, Button, Box, Typography, Paper, Divider } from "@mui/material";
+import { 
+  TextField, 
+  Button, 
+  Box, 
+  Typography, 
+  Paper, 
+  Divider,
+  IconButton,
+  InputAdornment 
+} from "@mui/material";
+import { Visibility, VisibilityOff, PersonAdd } from '@mui/icons-material';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +19,7 @@ const Register = () => {
     password: "",
     role: "user",
   });
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -18,12 +29,9 @@ const Register = () => {
   const handleRegister = async () => {
     try {
       const response = await axios.post("http://localhost:5000/api/register", formData);
-      console.log(response);
-      
-      //  alert(response.data.message);
       navigate("/");
     } catch (error) {
-      alert("Error registering user: " + (error.response?.data?.error || "An unexpected error occurred."));
+      alert("Registration failed: " + (error.response?.data?.error || "Please try again."));
     }
   };
 
@@ -34,61 +42,113 @@ const Register = () => {
         alignItems: "center",
         justifyContent: "center",
         minHeight: "100vh",
-        bgcolor: "#f5f5f5",
+        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
         padding: 3,
       }}
     >
       <Paper
-        elevation={3}
+        elevation={6}
         sx={{
-          maxWidth: 400,
-          padding: 4,
-          borderRadius: 2,
-          backgroundColor: "white",
+          maxWidth: 450,
+          width: "100%",
+          padding: 5,
+          borderRadius: 4,
+          backgroundColor: "rgba(255, 255, 255, 0.95)",
+          backdropFilter: "blur(10px)",
+          transition: "transform 0.3s ease-in-out",
+          "&:hover": {
+            transform: "scale(1.02)",
+          },
         }}
       >
-        <Typography variant="h4" fontWeight="bold" textAlign="center" gutterBottom>
-          Register
-        </Typography>
-        <Divider sx={{ marginBottom: 3 }} />
+        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mb: 3 }}>
+          <PersonAdd sx={{ fontSize: 40, color: "#764ba2", mr: 2 }} />
+          <Typography variant="h4" fontWeight="700" color="#333">
+            Create Account
+          </Typography>
+        </Box>
+        
+        <Divider sx={{ mb: 4, background: "#764ba2" }} />
+
         <TextField
-          label="Email"
+          label="Email Address"
           name="email"
           variant="outlined"
           fullWidth
           margin="normal"
           value={formData.email}
           onChange={handleInputChange}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "&:hover fieldset": {
+                borderColor: "#764ba2",
+              },
+            },
+          }}
         />
+
         <TextField
           label="Password"
           name="password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           variant="outlined"
           fullWidth
           margin="normal"
           value={formData.password}
           onChange={handleInputChange}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "&:hover fieldset": {
+                borderColor: "#764ba2",
+              },
+            },
+          }}
         />
+
         <Button
           variant="contained"
-          color="primary"
           fullWidth
           onClick={handleRegister}
-          sx={{ marginTop: 2, padding: "10px 0" }}
+          sx={{
+            mt: 4,
+            mb: 2,
+            py: 1.5,
+            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            fontSize: "1.1rem",
+            fontWeight: "600",
+            "&:hover": {
+              background: "linear-gradient(135deg, #764ba2 0%, #667eea 100%)",
+            },
+          }}
         >
-          Register
+          Register Now
         </Button>
-        <Box sx={{ textAlign: "center", marginTop: 3 }}>
-          <Typography variant="body1">
+
+        <Box sx={{ textAlign: "center", mt: 3 }}>
+          <Typography variant="body1" color="text.secondary">
             Already have an account?{" "}
             <Button
-              color="primary"
-              size="small"
               onClick={() => navigate("/")}
-              sx={{ textTransform: "none", padding: 0 }}
+              sx={{
+                textTransform: "none",
+                color: "#764ba2",
+                fontWeight: "600",
+                "&:hover": {
+                  background: "transparent",
+                  color: "#667eea",
+                },
+              }}
             >
-              Login
+              Sign In
             </Button>
           </Typography>
         </Box>
