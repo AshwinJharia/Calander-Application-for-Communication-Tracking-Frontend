@@ -13,7 +13,15 @@ import {
   Paper,
   Typography,
   Box,
+  Card,
+  IconButton,
+  Fade,
+  Tooltip,
+  Chip,
 } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const CommunicationMethodManagement = () => {
   const [methods, setMethods] = useState([]);
@@ -81,130 +89,174 @@ const CommunicationMethodManagement = () => {
   };
 
   return (
-    <Box sx={{ padding: 3 }}>
-      <hr
-        style={{
-          border: "0.5px solid black",
-          height: "4px",
-          background: "linear-gradient(to right, #00bcd4, #2196f3)",
-          margin: "10px 0",
+    <Box sx={{ padding: 4, backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+      <Card 
+        elevation={5}
+        sx={{
+          borderRadius: '15px',
+          background: 'linear-gradient(135deg, #fff 0%, #f8f9fa 100%)',
+          padding: '2rem',
+          marginBottom: '2rem'
         }}
-      />
-      
-      <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: "bold" }}>
-        Communication Method Management
-      </Typography>
+      >
+        <Typography 
+          variant="h4" 
+          gutterBottom 
+          sx={{
+            fontWeight: 700,
+            color: '#1a237e',
+            textAlign: 'center',
+            marginBottom: '2rem',
+            textTransform: 'uppercase',
+            letterSpacing: '0.1em',
+            borderBottom: '3px solid #1a237e',
+            paddingBottom: '1rem'
+          }}
+        >
+          Communication Method Management
+        </Typography>
 
-      <Paper sx={{ padding: 3, boxShadow: 3 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6} md={3}>
-            <TextField
-              label="Name"
-              name="name"
-              value={form.name}
-              onChange={handleInputChange}
-              fullWidth
-            />
+        <Paper 
+          sx={{ 
+            padding: 4,
+            borderRadius: '12px',
+            background: 'rgba(255, 255, 255, 0.9)',
+            backdropFilter: 'blur(10px)'
+          }}
+        >
+          <Grid container spacing={3} alignItems="center">
+            <Grid item xs={12} sm={6} md={3}>
+              <TextField
+                label="Name"
+                name="name"
+                value={form.name}
+                onChange={handleInputChange}
+                fullWidth
+                variant="outlined"
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px' } }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <TextField
+                label="Description"
+                name="description"
+                value={form.description}
+                onChange={handleInputChange}
+                fullWidth
+                variant="outlined"
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px' } }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={2}>
+              <TextField
+                label="Sequence"
+                name="sequence"
+                value={form.sequence}
+                onChange={handleInputChange}
+                fullWidth
+                variant="outlined"
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px' } }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={2}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Checkbox
+                  name="mandatory"
+                  checked={form.mandatory}
+                  onChange={handleInputChange}
+                  sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
+                />
+                <Typography>Mandatory</Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={6} md={2}>
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={handleSubmit}
+                startIcon={<AddCircleIcon />}
+                sx={{
+                  borderRadius: '10px',
+                  padding: '12px',
+                  background: 'linear-gradient(45deg, #1a237e 30%, #283593 90%)',
+                  color: 'white',
+                  fontWeight: 600,
+                  textTransform: 'none',
+                  '&:hover': {
+                    background: 'linear-gradient(45deg, #283593 30%, #1a237e 90%)',
+                  }
+                }}
+              >
+                {editId ? "Update" : "Add New"}
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <TextField
-              label="Description"
-              name="description"
-              value={form.description}
-              onChange={handleInputChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={2}>
-            <TextField
-              label="Sequence"
-              name="sequence"
-              value={form.sequence}
-              onChange={handleInputChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={2}>
-            <Checkbox
-              name="mandatory"
-              checked={form.mandatory}
-              onChange={handleInputChange}
-            />
-            Mandatory
-          </Grid>
-          <Grid item xs={12} sm={6} md={2}>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={handleSubmit}
-              sx={{
-                textTransform: "none",
-                fontWeight: "bold",
-              }}
-            >
-              {editId ? "Update" : "Add"}
-            </Button>
-          </Grid>
-        </Grid>
-      </Paper>
+        </Paper>
+      </Card>
 
-      <Box sx={{ marginTop: 3 }}>
-        <Table sx={{ minWidth: 650 }}>
+      <Card 
+        elevation={5}
+        sx={{
+          borderRadius: '15px',
+          overflow: 'hidden'
+        }}
+      >
+        <Table>
           <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Sequence</TableCell>
-              <TableCell>Mandatory</TableCell>
-              <TableCell>Actions</TableCell>
+            <TableRow sx={{ background: 'linear-gradient(45deg, #1a237e 30%, #283593 90%)' }}>
+              <TableCell sx={{ color: 'white', fontWeight: 600 }}>Name</TableCell>
+              <TableCell sx={{ color: 'white', fontWeight: 600 }}>Description</TableCell>
+              <TableCell sx={{ color: 'white', fontWeight: 600 }}>Sequence</TableCell>
+              <TableCell sx={{ color: 'white', fontWeight: 600 }}>Mandatory</TableCell>
+              <TableCell sx={{ color: 'white', fontWeight: 600 }}>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {methods.map((method) => (
-              <TableRow key={method._id}>
+              <TableRow 
+                key={method._id}
+                sx={{ 
+                  '&:hover': { 
+                    backgroundColor: 'rgba(26, 35, 126, 0.04)',
+                    transition: 'all 0.3s ease'
+                  }
+                }}
+              >
                 <TableCell>{method.name}</TableCell>
                 <TableCell>{method.description}</TableCell>
                 <TableCell>{method.sequence}</TableCell>
-                <TableCell>{method.mandatory ? "Yes" : "No"}</TableCell>
                 <TableCell>
-                  <Box display="flex" gap={2}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="small"
-                      onClick={() => handleEdit(method)}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      size="small"
-                      sx={{
-                        backgroundColor: "red",
-                        "&:hover": { backgroundColor: "darkred" },
-                      }}
-                      onClick={() => handleDelete(method._id)}
-                    >
-                      Delete
-                    </Button>
+                  <Chip 
+                    label={method.mandatory ? "Yes" : "No"}
+                    color={method.mandatory ? "primary" : "default"}
+                    size="small"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Box display="flex" gap={1}>
+                    <Tooltip title="Edit" TransitionComponent={Fade} arrow>
+                      <IconButton 
+                        onClick={() => handleEdit(method)}
+                        sx={{ color: '#1a237e' }}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete" TransitionComponent={Fade} arrow>
+                      <IconButton 
+                        onClick={() => handleDelete(method._id)}
+                        sx={{ color: '#d32f2f' }}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
                   </Box>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-      </Box>
-
-      <hr
-        style={{
-          border: "0.5px solid black",
-          height: "4px",
-          background: "linear-gradient(to right, #00bcd4, #2196f3)",
-          margin: "20px 0",
-        }}
-      />
+      </Card>
     </Box>
   );
 };

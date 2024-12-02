@@ -6,12 +6,20 @@ import {
   Box,
   Card,
   CardContent,
+  Container,
+  Paper,
+  IconButton,
+  Fade,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import CommunicationModal from "./CommunicationModal";
 import CommunicationCalendar from "./CommunicationCalendar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const UserDashboard = () => {
   const [communications, setCommunications] = useState([]);
@@ -129,105 +137,157 @@ const UserDashboard = () => {
     },
   ];
 
-  return (
-    <Box className="p-6 bg-gray-100 min-h-screen">
-      <Box className="flex justify-between items-center">
-        <Typography variant="h4" className="font-bold text-gray-800">
-          User Dashboard
-        </Typography>
-        <Button
-          variant="contained"
-          color="error"
-          onClick={handleLogout}
-          className="shadow-lg"
-        >
-          Logout
-        </Button>
-      </Box>
+  const customCardStyle = {
+    background: 'linear-gradient(135deg, #6B8DD6 0%, #8E37D7 100%)',
+    color: 'white',
+    borderRadius: '15px',
+    boxShadow: '0 8px 32px rgba(31, 38, 135, 0.37)',
+    backdropFilter: 'blur(4px)',
+    border: '1px solid rgba(255, 255, 255, 0.18)',
+    transition: 'transform 0.3s ease',
+    '&:hover': {
+      transform: 'translateY(-5px)'
+    }
+  };
 
-      {/* Notifications Section */}
-      <Box mt={4} className="space-y-6">
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
-            <Card className="shadow-lg">
-              <CardContent>
-                <Typography variant="h6" className="font-bold">
-                  Overdue Communications
-                </Typography>
-                {over.length > 0 ? (
-                  over.map((item, idx) => (
-                    <Typography key={idx}>
-                      {idx + 1}. {item.company.name} - {item.message}
+  const customDataGridStyle = {
+    border: 'none',
+    borderRadius: '15px',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+    '& .MuiDataGrid-cell': {
+      borderBottom: '1px solid #f0f0f0'
+    },
+    '& .MuiDataGrid-columnHeaders': {
+      backgroundColor: '#f8f9fa',
+      borderRadius: '15px 15px 0 0'
+    }
+  };
+
+  return (
+    <Container maxWidth="xl" sx={{ py: 4 }}>
+      <Paper elevation={0} sx={{ p: 4, borderRadius: '20px', background: '#f8f9fa' }}>
+        <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
+          <Box display="flex" alignItems="center" gap={2}>
+            <DashboardIcon sx={{ fontSize: 40, color: '#8E37D7' }} />
+            <Typography variant="h4" fontWeight="700" color="primary">
+              Communication Hub
+            </Typography>
+          </Box>
+          <Button
+            variant="contained"
+            color="error"
+            startIcon={<LogoutIcon />}
+            onClick={handleLogout}
+            sx={{ borderRadius: '12px', textTransform: 'none' }}
+          >
+            Sign Out
+          </Button>
+        </Box>
+
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
+            <Fade in={true} timeout={1000}>
+              <Card sx={customCardStyle}>
+                <CardContent>
+                  <Box display="flex" alignItems="center" gap={2} mb={2}>
+                    <NotificationsActiveIcon />
+                    <Typography variant="h6" fontWeight="600">
+                      Pending Communications
                     </Typography>
-                  ))
-                ) : (
-                  <Typography>No overdue communications</Typography>
-                )}
-              </CardContent>
-            </Card>
+                  </Box>
+                  {over.length > 0 ? (
+                    over.map((item, idx) => (
+                      <Typography key={idx}>
+                        {idx + 1}. {item.company.name} - {item.message}
+                      </Typography>
+                    ))
+                  ) : (
+                    <Typography>No overdue communications</Typography>
+                  )}
+                </CardContent>
+              </Card>
+            </Fade>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Card className="shadow-lg">
-              <CardContent>
-                <Typography variant="h6" className="font-bold">
-                  Today's Communications
-                </Typography>
-                {today.length > 0 ? (
-                  today.map((item, idx) => (
-                    <Typography key={idx}>
-                      {idx + 1}. {item.company.name} - {item.message}
+
+          <Grid item xs={12} md={6}>
+            <Fade in={true} timeout={1500}>
+              <Card sx={customCardStyle}>
+                <CardContent>
+                  <Box display="flex" alignItems="center" gap={2} mb={2}>
+                    <EventNoteIcon />
+                    <Typography variant="h6" fontWeight="600">
+                      Today's Schedule
                     </Typography>
-                  ))
-                ) : (
-                  <Typography>No communications due today</Typography>
-                )}
-              </CardContent>
-            </Card>
+                  </Box>
+                  {today.length > 0 ? (
+                    today.map((item, idx) => (
+                      <Typography key={idx}>
+                        {idx + 1}. {item.company.name} - {item.message}
+                      </Typography>
+                    ))
+                  ) : (
+                    <Typography>No communications due today</Typography>
+                  )}
+                </CardContent>
+              </Card>
+            </Fade>
           </Grid>
         </Grid>
-      </Box>
 
-      {/* Data Grid Section */}
-      <Box mt={6}>
-        <Typography variant="h6" className="font-bold mb-4">
-          Communication History
-        </Typography>
-        <div style={{ height: 400, width: "100%" }}>
-          <DataGrid
-            rows={communications}
-            getRowId={(row) => row._id + row.company.name}
-            columns={columns}
-            pageSize={5}
-            checkboxSelection
-            onRowSelectionModelChange={(newRowSelectionModel) => {
-              setRowSelectionModel(newRowSelectionModel);
-              setSelected(newRowSelectionModel.length > 0);
+        <Box mt={6}>
+          <Typography variant="h5" fontWeight="600" mb={3}>
+            Communication History
+          </Typography>
+          <Box sx={customDataGridStyle}>
+            <DataGrid
+              rows={communications}
+              getRowId={(row) => row._id + row.company.name}
+              columns={columns}
+              pageSize={5}
+              checkboxSelection
+              autoHeight
+              onRowSelectionModelChange={(newRowSelectionModel) => {
+                setRowSelectionModel(newRowSelectionModel);
+                setSelected(newRowSelectionModel.length > 0);
+              }}
+              rowSelectionModel={rowSelectionModel}
+              sx={{
+                '& .MuiDataGrid-row:hover': {
+                  backgroundColor: 'rgba(142, 55, 215, 0.04)'
+                }
+              }}
+            />
+          </Box>
+          <Button
+            variant="contained"
+            disabled={!selected}
+            onClick={handleCommunicationPerformed}
+            sx={{
+              mt: 3,
+              borderRadius: '12px',
+              textTransform: 'none',
+              background: 'linear-gradient(135deg, #6B8DD6 0%, #8E37D7 100%)',
+              '&:hover': {
+                background: 'linear-gradient(135deg, #5B7DC6 0%, #7E27C7 100%)'
+              }
             }}
-            rowSelectionModel={rowSelectionModel}
-          />
-        </div>
-        <Button
-          variant="contained"
-          color="primary"
-          disabled={!selected}
-          className="mt-4"
-          onClick={handleCommunicationPerformed}
-        >
-          Log Communication
-        </Button>
-      </Box>
+          >
+            Log New Communication
+          </Button>
+        </Box>
 
-      {/* Calendar Section */}
-      <CommunicationCalendar communications={communications} />
+        <Box mt={6}>
+          <CommunicationCalendar communications={communications} />
+        </Box>
 
-      {/* Modal */}
-      <CommunicationModal
-        open={openModal}
-        onClose={handleCloseModal}
-        onSubmit={handleLogCommunication}
-        company={selectedCompanyId}
-      />
-    </Box>
+        <CommunicationModal
+          open={openModal}
+          onClose={handleCloseModal}
+          onSubmit={handleLogCommunication}
+          company={selectedCompanyId}
+        />
+      </Paper>
+    </Container>
   );
 };
 
