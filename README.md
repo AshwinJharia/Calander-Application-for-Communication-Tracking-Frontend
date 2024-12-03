@@ -1,155 +1,102 @@
+# Corporate Communication Calendar
 
----
+A React-based Calendar Application for managing and tracking corporate communications efficiently.
 
-# Aryan_ENTNT_Assignment_Frontend(React.js)
+## 🌟 Live Demo
 
-## Overview
+[View Live Demo](https://corporate-comm-calendar.example.com)
 
-The Assignment is a modern web application designed to manage and visualize communication schedules, including tracking companies, communication methods, and scheduled activities. This application provides an intuitive UI where users can view, add, and modify communication records in a structured, easy-to-use manner. It leverages **React.js** and **Material-UI** for a seamless and responsive user experience.
+## 🎯 Features
 
----
+### Admin Module
 
-## Key Features
+- **Company Management**
+  - CRUD operations for companies
+  - Detailed company profiles including name, location, LinkedIn, contacts
+  - Communication periodicity settings
+- **Communication Methods**
+  - Predefined communication sequence
+  - Customizable method settings
+  - Priority and mandatory flags
 
-- **Communication Data Grid**: Displays and manages communication records (companies, methods, schedules).
-- **Sorting & Filtering**: Easily sort and filter communication data for quick access and analysis.
-- **Add/Update/Delete Communication Records**: Users can manage their communication records dynamically.
+### User Module
 
-- **Backend Integration**: Uses a back-end API for data (also built by myself).
+- **Interactive Dashboard**
+  - Grid view of companies
+  - Last 5 communications history
+  - Next scheduled communication display
+  - Color-coded status indicators
+- **Smart Notifications**
+  - Overdue communications alerts
+  - Due today reminders
+  - Badge counter for pending tasks
+- **Calendar Interface**
+  - Past communication logs
+  - Future communication planning
+  - Visual scheduling
 
----
+## 🚀 Getting Started
 
-## Functionality
+### Prerequisites
 
-- **DataGrid**:
-  - Displays communication records with fields such as company name, communication method, and scheduled time.
-  - Supports dynamic sorting and filtering of data.
-  
-- **CRUD Operations**:
-  - Add new communication records.
+- Node.js (v14 or higher)
+- npm or yarn
 
-  
-- **Search and Sorting**:
-  - Search and sort communication records by company, method, or schedule.
-  
-- **Data Display**:
-  - Display mock data for testing purposes, with potential integration for future real data.
+### Installation
 
----
+1. Clone the repository:
 
-## Tech Stack
+git clone https://github.com/your-username/corporate-communication-calendar.git
+cd corporate-communication-calendar
+npm install
+npm start
 
-- **Frontend**: 
-  - **React.js** (for building components and UI)
-  - **Material-UI** (for UI components like DataGrid, buttons, and forms)
-  - **React Router** (for page navigation)
-  - **JavaScript (ES6+)**
-  
-- **State Management**: 
-  - React's built-in hooks for managing state (useState, useEffect)
+2. Configure environment variables:
+   - Copy `.env.example` to `.env`
+   - Update the variables with your specific settings
 
-- **Deployment**: 
-  - **Vercel** or **Netlify** (for hosting the application)
+## 🛠️ Built With
 
----
+- React.js
+- Tailwind CSS
+- React Router
+- Context API for state management
 
-## Prerequisites
+## 📝 Usage
 
-Before you start, make sure you have the following installed:
+### Admin Access
 
-- [Node.js](https://nodejs.org/en/download/) (v14 or higher)
-- [npm](https://www.npmjs.com/get-npm) (Node package manager)
+1. Navigate to `/admin`
+2. Use the company management interface to add/edit companies
+3. Configure communication methods and sequences
 
----
+### User Dashboard
 
-## Setup Instructions
+1. View company grid on the main dashboard
+2. Check notifications for pending communications
+3. Log new communications using the action modal
+4. Use calendar view for schedule management
 
-1. **Clone the repository**:
+## 🔍 Known Limitations
 
-   ```bash
-   git clone https://github.com/aryanak-18/Aryan_ENTNT_Assignment_Frontend-React.js-.git
-   ```
+- Calendar view limited to 6-month future planning
+- Maximum of 10 communication methods per company
+- Bulk actions limited to 20 companies at once
+- Real-time collaboration features not yet implemented
 
-2. **Install dependencies**:
+## 🤝 Contributing
 
-   Navigate to the project folder and install dependencies using npm:
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-   ```bash
-   cd project
-   npm install
-   ```
+## 📄 License
 
-3. **Run the development server**:
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
-   Once the dependencies are installed, you can start the application locally:
+## 👥 Contact
 
-   ```bash
-   npm start
-   ```
-
-   This will start the development server and open the application in your browser at [http://localhost:3000](http://localhost:3000).
-
-4. **Building for Production**:
-
-   To create an optimized production build:
-
-   ```bash
-   npm run build
-   ```
-
----
-
-## Deployment
-
-This project can be deployed to platforms like **Vercel** or **Netlify**:
-
-- **Vercel**:
-  - Push the project to a GitHub repository.
-  - Go to [Vercel](https://vercel.com/) and link your GitHub repository to deploy automatically.
-  
-- **Netlify**:
-  - Push the project to a GitHub repository.
-  - Go to [Netlify](https://www.netlify.com/) and link your repository to deploy automatically.
-
-Once deployed, you'll receive a live URL to access the application.
-
----
-
-## External Dependencies
-
-- **@emotion/react**
-- **@emotion/styled**
-- **@mui/icons-material**
-- **@mui/material**
-- **@mui/x-data-grid**
-- **@testing-library/jest-dom**
-- **@testing-library/react**
-- **@testing-library/user-event**
-- **axios**
-- **dayjs**
-- **react**
-- **react-calendar**
-- **react-dom**
-- **react-router-dom**
-- **react-scripts**
-- **react-tooltip**
-- **web-vitals**
-
----
-
-
-## Testing & Validation
-
-- **Test the UI**: Ensure all components are rendered properly on different screen sizes.
-- **Validate sorting/filtering**: Make sure that sorting and filtering work as expected in the DataGrid.
-- **Test CRUD operations**: Ensure the add, update, and delete actions function properly.
-- **Check performance**: Test the application for any performance bottlenecks and resolve them.
-
----
-
-## Known Limitations
-
-- The current version uses **mock data** for the companies and communication records. Integration with a real back-end system (e.g., REST API) is a potential future enhancement.
-- The DataGrid does not yet support advanced features like pagination or infinite scrolling. These can be added in future versions.
-  
----
+John Doe - john.doe@example.com
+Project Link: https://github.com/johndoe/corporate-communication-calendar
