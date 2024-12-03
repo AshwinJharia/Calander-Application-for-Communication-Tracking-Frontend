@@ -35,7 +35,9 @@ const CommunicationMethodManagement = () => {
 
   const fetchMethods = async () => {
     try {
-      const response = await axios.get("REACT_APP_BACKEND_URL/communications");
+      const response = await axios.get(
+        `https://calander-application-for-communication.onrender.com/api/communications`
+      );
       setMethods(response.data);
     } catch (error) {
       console.error("Failed to fetch communication methods", error);
@@ -57,10 +59,16 @@ const CommunicationMethodManagement = () => {
   const handleSubmit = async () => {
     try {
       if (editId) {
-        await axios.put(`REACT_APP_BACKEND_URL/communications/${editId}`, form);
+        await axios.put(
+          `https://calander-application-for-communication.onrender.com/api/communications/${editId}`,
+          form
+        );
         setEditId(null);
       } else {
-        await axios.post(`REACT_APP_BACKEND_URL/communications`, form);
+        await axios.post(
+          `https://calander-application-for-communication.onrender.com/api/communications`,
+          form
+        );
       }
       setForm({ name: "", description: "", sequence: "", mandatory: false });
       fetchMethods();
@@ -76,7 +84,9 @@ const CommunicationMethodManagement = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`REACT_APP_BACKEND_URL/communications/${id}`);
+      await axios.delete(
+        `https://calander-application-for-communication.onrender.com/api/communications/${id}`
+      );
       fetchMethods();
     } catch (error) {
       console.error("Failed to delete communication method", error);

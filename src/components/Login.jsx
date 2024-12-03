@@ -25,7 +25,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "REACT_APP_BACKEND_URL/login",
+        `https://calander-application-for-communication.onrender.com/api/login`,
         formData
       );
       localStorage.setItem("token", response.data.token);

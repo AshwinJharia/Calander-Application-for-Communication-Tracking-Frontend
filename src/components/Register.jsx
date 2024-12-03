@@ -29,7 +29,7 @@ const Register = () => {
   const handleRegister = async () => {
     try {
       const response = await axios.post(
-        "REACT_APP_BACKEND_URL/register",
+        `https://calander-application-for-communication.onrender.com/api/register`,
         formData
       );
       navigate("/");

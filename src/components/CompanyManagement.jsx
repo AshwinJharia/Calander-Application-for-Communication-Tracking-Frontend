@@ -29,7 +29,9 @@ const CompanyManagement = () => {
 
   const fetchCompanies = async () => {
     try {
-      const response = await axios.get("REACT_APP_BACKEND_URL/companies");
+      const response = await axios.get(
+        `https://calander-application-for-communication.onrender.com/api/companies`
+      );
       setCompanies(response.data);
     } catch (error) {
       console.error("Error fetching companies:", error);
@@ -100,11 +102,14 @@ const CompanyManagement = () => {
       try {
         if (currentCompany) {
           await axios.put(
-            `REACT_APP_BACKEND_URL/companies/edit/${currentCompany._id}`,
+            `https://calander-application-for-communication.onrender.com/api/companies/edit/${currentCompany._id}`,
             data
           );
         } else {
-          await axios.post(`REACT_APP_BACKEND_URL/companies/add`, data);
+          await axios.post(
+            `https://calander-application-for-communication.onrender.com/api/companies/add`,
+            data
+          );
         }
         fetchCompanies();
         handleCloseModal();
@@ -119,7 +124,9 @@ const CompanyManagement = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this company?")) {
       try {
-        await axios.delete(`REACT_APP_BACKEND_URL/companies/delete/${id}`);
+        await axios.delete(
+          `https://calander-application-for-communication.onrender.com/api/companies/delete/${id}`
+        );
         fetchCompanies();
       } catch (error) {
         console.error("Error deleting company:", error);

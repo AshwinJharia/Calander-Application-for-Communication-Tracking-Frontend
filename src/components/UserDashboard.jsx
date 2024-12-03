@@ -68,7 +68,7 @@ const UserDashboard = () => {
   const fetchCommsFromAPI = async () => {
     try {
       const response = await axios.get(
-        "REACT_APP_BACKEND_URL/communications-user"
+        `https://calander-application-for-communication.onrender.com/api/communications-user`
       );
       return response.data;
     } catch (error) {
@@ -78,7 +78,9 @@ const UserDashboard = () => {
 
   const fetchNotificationsFromAPI = async () => {
     try {
-      const response = await axios.get("REACT_APP_BACKEND_URL/notifications");
+      const response = await axios.get(
+        `https://calander-application-for-communication.onrender.com/api/notifications`
+      );
       return response.data;
     } catch (error) {
       console.error("Error fetching notifications:", error);
