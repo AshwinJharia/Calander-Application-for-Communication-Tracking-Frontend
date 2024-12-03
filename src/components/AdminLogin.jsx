@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { 
-  TextField, 
-  Button, 
-  Box, 
-  Typography, 
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
   Paper,
   Container,
   IconButton,
-  InputAdornment
+  InputAdornment,
 } from "@mui/material";
-import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Email, Lock, Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -28,7 +28,7 @@ const AdminLogin = () => {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/login",
+        "REACT_APP_BACKEND_URL/login",
         formData
       );
       localStorage.setItem("token", response.data.token);
@@ -41,26 +41,26 @@ const AdminLogin = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Paper 
+      <Paper
         elevation={6}
         sx={{
           marginTop: 8,
           padding: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
           borderRadius: 3,
-          background: 'linear-gradient(to right bottom, #ffffff, #f8f9fa)'
+          background: "linear-gradient(to right bottom, #ffffff, #f8f9fa)",
         }}
       >
-        <Typography 
-          variant="h4" 
+        <Typography
+          variant="h4"
           sx={{
             fontWeight: 700,
-            color: '#1a237e',
+            color: "#1a237e",
             marginBottom: 3,
-            textTransform: 'uppercase',
-            letterSpacing: 1
+            textTransform: "uppercase",
+            letterSpacing: 1,
           }}
         >
           Admin Portal
@@ -80,10 +80,10 @@ const AdminLogin = () => {
               </InputAdornment>
             ),
           }}
-          sx={{ 
-            '& .MuiOutlinedInput-root': {
-              borderRadius: 2
-            }
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 2,
+            },
           }}
         />
 
@@ -112,10 +112,10 @@ const AdminLogin = () => {
               </InputAdornment>
             ),
           }}
-          sx={{ 
-            '& .MuiOutlinedInput-root': {
-              borderRadius: 2
-            }
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 2,
+            },
           }}
         />
 
@@ -128,11 +128,11 @@ const AdminLogin = () => {
             marginBottom: 2,
             padding: 1.5,
             borderRadius: 2,
-            background: 'linear-gradient(45deg, #1a237e 30%, #3949ab 90%)',
+            background: "linear-gradient(45deg, #1a237e 30%, #3949ab 90%)",
             fontWeight: 600,
-            '&:hover': {
-              background: 'linear-gradient(45deg, #3949ab 30%, #1a237e 90%)',
-            }
+            "&:hover": {
+              background: "linear-gradient(45deg, #3949ab 30%, #1a237e 90%)",
+            },
           }}
         >
           Sign In
@@ -148,13 +148,13 @@ const AdminLogin = () => {
             sx={{
               marginTop: 1,
               borderRadius: 2,
-              textTransform: 'none',
-              borderColor: '#1a237e',
-              color: '#1a237e',
-              '&:hover': {
-                borderColor: '#3949ab',
-                background: 'rgba(57, 73, 171, 0.04)'
-              }
+              textTransform: "none",
+              borderColor: "#1a237e",
+              color: "#1a237e",
+              "&:hover": {
+                borderColor: "#3949ab",
+                background: "rgba(57, 73, 171, 0.04)",
+              },
             }}
           >
             Go to User Login

@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button, Modal, Box, TextField, MenuItem, Typography, Divider } from "@mui/material";
-import { Edit, Delete } from "@mui/icons-material"; 
+import {
+  Button,
+  Modal,
+  Box,
+  TextField,
+  MenuItem,
+  Typography,
+  Divider,
+} from "@mui/material";
+import { Edit, Delete } from "@mui/icons-material";
 
 const CompanyManagement = () => {
   const [companies, setCompanies] = useState([]);
@@ -21,7 +29,7 @@ const CompanyManagement = () => {
 
   const fetchCompanies = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/companies");
+      const response = await axios.get("REACT_APP_BACKEND_URL/companies");
       setCompanies(response.data);
     } catch (error) {
       console.error("Error fetching companies:", error);
@@ -83,18 +91,20 @@ const CompanyManagement = () => {
     const data = {
       ...formValues,
       emails: formValues.emails.split(",").map((email) => email.trim()),
-      phoneNumbers: formValues.phoneNumbers.split(",").map((phone) => phone.trim()),
+      phoneNumbers: formValues.phoneNumbers
+        .split(",")
+        .map((phone) => phone.trim()),
     };
 
     if (validateForm()) {
       try {
         if (currentCompany) {
           await axios.put(
-            `http://localhost:5000/api/companies/edit/${currentCompany._id}`,
+            `REACT_APP_BACKEND_URL/companies/edit/${currentCompany._id}`,
             data
           );
         } else {
-          await axios.post(`http://localhost:5000/api/companies/add`, data);
+          await axios.post(`REACT_APP_BACKEND_URL/companies/add`, data);
         }
         fetchCompanies();
         handleCloseModal();
@@ -109,7 +119,7 @@ const CompanyManagement = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this company?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/companies/delete/${id}`);
+        await axios.delete(`REACT_APP_BACKEND_URL/companies/delete/${id}`);
         fetchCompanies();
       } catch (error) {
         console.error("Error deleting company:", error);
@@ -147,7 +157,10 @@ const CompanyManagement = () => {
             size="small"
             onClick={() => handleDelete(params.row._id)}
             startIcon={<Delete />}
-            sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}
+            sx={{
+              backgroundColor: "red",
+              "&:hover": { backgroundColor: "darkred" },
+            }}
           >
             Delete
           </Button>

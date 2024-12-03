@@ -19,9 +19,9 @@ import {
   Tooltip,
   Chip,
 } from "@mui/material";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 const CommunicationMethodManagement = () => {
   const [methods, setMethods] = useState([]);
@@ -35,9 +35,7 @@ const CommunicationMethodManagement = () => {
 
   const fetchMethods = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/communications"
-      );
+      const response = await axios.get("REACT_APP_BACKEND_URL/communications");
       setMethods(response.data);
     } catch (error) {
       console.error("Failed to fetch communication methods", error);
@@ -59,13 +57,10 @@ const CommunicationMethodManagement = () => {
   const handleSubmit = async () => {
     try {
       if (editId) {
-        await axios.put(
-          `http://localhost:5000/api/communications/${editId}`,
-          form
-        );
+        await axios.put(`REACT_APP_BACKEND_URL/communications/${editId}`, form);
         setEditId(null);
       } else {
-        await axios.post(`http://localhost:5000/api/communications`, form);
+        await axios.post(`REACT_APP_BACKEND_URL/communications`, form);
       }
       setForm({ name: "", description: "", sequence: "", mandatory: false });
       fetchMethods();
@@ -81,7 +76,7 @@ const CommunicationMethodManagement = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/communications/${id}`);
+      await axios.delete(`REACT_APP_BACKEND_URL/communications/${id}`);
       fetchMethods();
     } catch (error) {
       console.error("Failed to delete communication method", error);
@@ -89,39 +84,39 @@ const CommunicationMethodManagement = () => {
   };
 
   return (
-    <Box sx={{ padding: 4, backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
-      <Card 
+    <Box sx={{ padding: 4, backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
+      <Card
         elevation={5}
         sx={{
-          borderRadius: '15px',
-          background: 'linear-gradient(135deg, #fff 0%, #f8f9fa 100%)',
-          padding: '2rem',
-          marginBottom: '2rem'
+          borderRadius: "15px",
+          background: "linear-gradient(135deg, #fff 0%, #f8f9fa 100%)",
+          padding: "2rem",
+          marginBottom: "2rem",
         }}
       >
-        <Typography 
-          variant="h4" 
-          gutterBottom 
+        <Typography
+          variant="h4"
+          gutterBottom
           sx={{
             fontWeight: 700,
-            color: '#1a237e',
-            textAlign: 'center',
-            marginBottom: '2rem',
-            textTransform: 'uppercase',
-            letterSpacing: '0.1em',
-            borderBottom: '3px solid #1a237e',
-            paddingBottom: '1rem'
+            color: "#1a237e",
+            textAlign: "center",
+            marginBottom: "2rem",
+            textTransform: "uppercase",
+            letterSpacing: "0.1em",
+            borderBottom: "3px solid #1a237e",
+            paddingBottom: "1rem",
           }}
         >
           Communication Method Management
         </Typography>
 
-        <Paper 
-          sx={{ 
+        <Paper
+          sx={{
             padding: 4,
-            borderRadius: '12px',
-            background: 'rgba(255, 255, 255, 0.9)',
-            backdropFilter: 'blur(10px)'
+            borderRadius: "12px",
+            background: "rgba(255, 255, 255, 0.9)",
+            backdropFilter: "blur(10px)",
           }}
         >
           <Grid container spacing={3} alignItems="center">
@@ -133,7 +128,7 @@ const CommunicationMethodManagement = () => {
                 onChange={handleInputChange}
                 fullWidth
                 variant="outlined"
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px' } }}
+                sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
@@ -144,7 +139,7 @@ const CommunicationMethodManagement = () => {
                 onChange={handleInputChange}
                 fullWidth
                 variant="outlined"
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px' } }}
+                sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={2}>
@@ -155,16 +150,16 @@ const CommunicationMethodManagement = () => {
                 onChange={handleInputChange}
                 fullWidth
                 variant="outlined"
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px' } }}
+                sx={{ "& .MuiOutlinedInput-root": { borderRadius: "10px" } }}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={2}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Checkbox
                   name="mandatory"
                   checked={form.mandatory}
                   onChange={handleInputChange}
-                  sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
+                  sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
                 />
                 <Typography>Mandatory</Typography>
               </Box>
@@ -176,15 +171,17 @@ const CommunicationMethodManagement = () => {
                 onClick={handleSubmit}
                 startIcon={<AddCircleIcon />}
                 sx={{
-                  borderRadius: '10px',
-                  padding: '12px',
-                  background: 'linear-gradient(45deg, #1a237e 30%, #283593 90%)',
-                  color: 'white',
+                  borderRadius: "10px",
+                  padding: "12px",
+                  background:
+                    "linear-gradient(45deg, #1a237e 30%, #283593 90%)",
+                  color: "white",
                   fontWeight: 600,
-                  textTransform: 'none',
-                  '&:hover': {
-                    background: 'linear-gradient(45deg, #283593 30%, #1a237e 90%)',
-                  }
+                  textTransform: "none",
+                  "&:hover": {
+                    background:
+                      "linear-gradient(45deg, #283593 30%, #1a237e 90%)",
+                  },
                 }}
               >
                 {editId ? "Update" : "Add New"}
@@ -194,39 +191,53 @@ const CommunicationMethodManagement = () => {
         </Paper>
       </Card>
 
-      <Card 
+      <Card
         elevation={5}
         sx={{
-          borderRadius: '15px',
-          overflow: 'hidden'
+          borderRadius: "15px",
+          overflow: "hidden",
         }}
       >
         <Table>
           <TableHead>
-            <TableRow sx={{ background: 'linear-gradient(45deg, #1a237e 30%, #283593 90%)' }}>
-              <TableCell sx={{ color: 'white', fontWeight: 600 }}>Name</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 600 }}>Description</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 600 }}>Sequence</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 600 }}>Mandatory</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 600 }}>Actions</TableCell>
+            <TableRow
+              sx={{
+                background: "linear-gradient(45deg, #1a237e 30%, #283593 90%)",
+              }}
+            >
+              <TableCell sx={{ color: "white", fontWeight: 600 }}>
+                Name
+              </TableCell>
+              <TableCell sx={{ color: "white", fontWeight: 600 }}>
+                Description
+              </TableCell>
+              <TableCell sx={{ color: "white", fontWeight: 600 }}>
+                Sequence
+              </TableCell>
+              <TableCell sx={{ color: "white", fontWeight: 600 }}>
+                Mandatory
+              </TableCell>
+              <TableCell sx={{ color: "white", fontWeight: 600 }}>
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {methods.map((method) => (
-              <TableRow 
+              <TableRow
                 key={method._id}
-                sx={{ 
-                  '&:hover': { 
-                    backgroundColor: 'rgba(26, 35, 126, 0.04)',
-                    transition: 'all 0.3s ease'
-                  }
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "rgba(26, 35, 126, 0.04)",
+                    transition: "all 0.3s ease",
+                  },
                 }}
               >
                 <TableCell>{method.name}</TableCell>
                 <TableCell>{method.description}</TableCell>
                 <TableCell>{method.sequence}</TableCell>
                 <TableCell>
-                  <Chip 
+                  <Chip
                     label={method.mandatory ? "Yes" : "No"}
                     color={method.mandatory ? "primary" : "default"}
                     size="small"
@@ -235,17 +246,17 @@ const CommunicationMethodManagement = () => {
                 <TableCell>
                   <Box display="flex" gap={1}>
                     <Tooltip title="Edit" TransitionComponent={Fade} arrow>
-                      <IconButton 
+                      <IconButton
                         onClick={() => handleEdit(method)}
-                        sx={{ color: '#1a237e' }}
+                        sx={{ color: "#1a237e" }}
                       >
                         <EditIcon />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete" TransitionComponent={Fade} arrow>
-                      <IconButton 
+                      <IconButton
                         onClick={() => handleDelete(method._id)}
-                        sx={{ color: '#d32f2f' }}
+                        sx={{ color: "#d32f2f" }}
                       >
                         <DeleteIcon />
                       </IconButton>

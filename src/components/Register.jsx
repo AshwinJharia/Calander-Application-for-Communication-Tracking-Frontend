@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { 
-  TextField, 
-  Button, 
-  Box, 
-  Typography, 
-  Paper, 
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Paper,
   Divider,
   IconButton,
-  InputAdornment 
+  InputAdornment,
 } from "@mui/material";
-import { Visibility, VisibilityOff, PersonAdd } from '@mui/icons-material';
+import { Visibility, VisibilityOff, PersonAdd } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -28,10 +28,16 @@ const Register = () => {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/register", formData);
+      const response = await axios.post(
+        "REACT_APP_BACKEND_URL/register",
+        formData
+      );
       navigate("/");
     } catch (error) {
-      alert("Registration failed: " + (error.response?.data?.error || "Please try again."));
+      alert(
+        "Registration failed: " +
+          (error.response?.data?.error || "Please try again.")
+      );
     }
   };
 
@@ -61,13 +67,20 @@ const Register = () => {
           },
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mb: 3 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            mb: 3,
+          }}
+        >
           <PersonAdd sx={{ fontSize: 40, color: "#764ba2", mr: 2 }} />
           <Typography variant="h4" fontWeight="700" color="#333">
             Create Account
           </Typography>
         </Box>
-        
+
         <Divider sx={{ mb: 4, background: "#764ba2" }} />
 
         <TextField

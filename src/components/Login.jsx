@@ -1,8 +1,15 @@
 import React, { useState } from "react";
-import { TextField, Button, Box, Paper, Typography, Container } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Paper,
+  Typography,
+  Container,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -18,14 +25,17 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/login",
+        "REACT_APP_BACKEND_URL/login",
         formData
       );
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", response.data.role);
       navigate("/user-dashboard");
     } catch (error) {
-      alert("Error logging in: " + error.response?.data?.error || "An error occurred");
+      alert(
+        "Error logging in: " + error.response?.data?.error ||
+          "An error occurred"
+      );
     }
   };
 
@@ -36,36 +46,42 @@ const Login = () => {
         sx={{
           marginTop: 8,
           padding: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          background: 'linear-gradient(145deg, #ffffff, #f0f0f0)',
-          borderRadius: '15px',
-          position: 'relative',
-          overflow: 'hidden',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          background: "linear-gradient(145deg, #ffffff, #f0f0f0)",
+          borderRadius: "15px",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
         <Box
           sx={{
-            position: 'absolute',
+            position: "absolute",
             top: 0,
             left: 0,
             right: 0,
-            height: '5px',
-            background: 'linear-gradient(90deg, #2196f3, #e91e63)',
+            height: "5px",
+            background: "linear-gradient(90deg, #2196f3, #e91e63)",
           }}
         />
-        
-        <Box sx={{ 
-          p: 2, 
-          borderRadius: '50%', 
-          bgcolor: '#1976d2',
-          mb: 2
-        }}>
-          <LockOutlinedIcon sx={{ color: 'white' }} />
+
+        <Box
+          sx={{
+            p: 2,
+            borderRadius: "50%",
+            bgcolor: "#1976d2",
+            mb: 2,
+          }}
+        >
+          <LockOutlinedIcon sx={{ color: "white" }} />
         </Box>
 
-        <Typography component="h1" variant="h4" sx={{ mb: 4, fontWeight: 600, color: '#333' }}>
+        <Typography
+          component="h1"
+          variant="h4"
+          sx={{ mb: 4, fontWeight: 600, color: "#333" }}
+        >
           Welcome Back
         </Typography>
 
@@ -78,9 +94,9 @@ const Login = () => {
           onChange={handleInputChange}
           variant="outlined"
           sx={{
-            '& .MuiOutlinedInput-root': {
-              '&:hover fieldset': {
-                borderColor: '#1976d2',
+            "& .MuiOutlinedInput-root": {
+              "&:hover fieldset": {
+                borderColor: "#1976d2",
               },
             },
           }}
@@ -96,9 +112,9 @@ const Login = () => {
           onChange={handleInputChange}
           variant="outlined"
           sx={{
-            '& .MuiOutlinedInput-root': {
-              '&:hover fieldset': {
-                borderColor: '#1976d2',
+            "& .MuiOutlinedInput-root": {
+              "&:hover fieldset": {
+                borderColor: "#1976d2",
               },
             },
           }}
@@ -112,32 +128,32 @@ const Login = () => {
             mt: 3,
             mb: 2,
             py: 1.5,
-            fontSize: '1rem',
+            fontSize: "1rem",
             fontWeight: 600,
-            textTransform: 'none',
-            borderRadius: '8px',
-            background: 'linear-gradient(45deg, #1976d2, #2196f3)',
-            '&:hover': {
-              background: 'linear-gradient(45deg, #1565c0, #1976d2)',
-              transform: 'translateY(-2px)',
-              transition: 'all 0.3s',
+            textTransform: "none",
+            borderRadius: "8px",
+            background: "linear-gradient(45deg, #1976d2, #2196f3)",
+            "&:hover": {
+              background: "linear-gradient(45deg, #1565c0, #1976d2)",
+              transform: "translateY(-2px)",
+              transition: "all 0.3s",
             },
           }}
         >
           Sign In
         </Button>
 
-        <Box sx={{ mt: 3, width: '100%', textAlign: 'center' }}>
+        <Box sx={{ mt: 3, width: "100%", textAlign: "center" }}>
           <Button
             onClick={() => navigate("/admin-login")}
             variant="outlined"
             color="error"
             sx={{
-              borderRadius: '8px',
-              textTransform: 'none',
-              '&:hover': {
-                transform: 'translateY(-2px)',
-                transition: 'all 0.3s',
+              borderRadius: "8px",
+              textTransform: "none",
+              "&:hover": {
+                transform: "translateY(-2px)",
+                transition: "all 0.3s",
               },
             }}
           >
@@ -145,18 +161,19 @@ const Login = () => {
           </Button>
         </Box>
 
-        <Typography 
-          sx={{ 
-            mt: 3, 
-            cursor: 'pointer',
-            color: '#1976d2',
-            '&:hover': {
-              textDecoration: 'underline',
+        <Typography
+          sx={{
+            mt: 3,
+            cursor: "pointer",
+            color: "#1976d2",
+            "&:hover": {
+              textDecoration: "underline",
             },
           }}
           onClick={() => navigate("/register")}
         >
-          Don't have an account? <span style={{ fontWeight: 600 }}>Sign Up</span>
+          Don't have an account?{" "}
+          <span style={{ fontWeight: 600 }}>Sign Up</span>
         </Typography>
       </Paper>
     </Container>

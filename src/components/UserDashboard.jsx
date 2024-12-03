@@ -16,10 +16,10 @@ import CommunicationModal from "./CommunicationModal";
 import CommunicationCalendar from "./CommunicationCalendar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import EventNoteIcon from '@mui/icons-material/EventNote';
-import LogoutIcon from '@mui/icons-material/Logout';
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import EventNoteIcon from "@mui/icons-material/EventNote";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const UserDashboard = () => {
   const [communications, setCommunications] = useState([]);
@@ -39,9 +39,7 @@ const UserDashboard = () => {
   };
 
   const handleCommunicationPerformed = () => {
-    const selectedIds = rowSelectionModel.map((id) =>
-      id.slice(24, id.length)
-    );
+    const selectedIds = rowSelectionModel.map((id) => id.slice(24, id.length));
     const uniqueCompanies = Array.from(new Set(selectedIds)).map((id) => ({
       name: id,
     }));
@@ -70,7 +68,7 @@ const UserDashboard = () => {
   const fetchCommsFromAPI = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/communications-user"
+        "REACT_APP_BACKEND_URL/communications-user"
       );
       return response.data;
     } catch (error) {
@@ -80,9 +78,7 @@ const UserDashboard = () => {
 
   const fetchNotificationsFromAPI = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/notifications"
-      );
+      const response = await axios.get("REACT_APP_BACKEND_URL/notifications");
       return response.data;
     } catch (error) {
       console.error("Error fetching notifications:", error);
@@ -138,37 +134,45 @@ const UserDashboard = () => {
   ];
 
   const customCardStyle = {
-    background: 'linear-gradient(135deg, #6B8DD6 0%, #8E37D7 100%)',
-    color: 'white',
-    borderRadius: '15px',
-    boxShadow: '0 8px 32px rgba(31, 38, 135, 0.37)',
-    backdropFilter: 'blur(4px)',
-    border: '1px solid rgba(255, 255, 255, 0.18)',
-    transition: 'transform 0.3s ease',
-    '&:hover': {
-      transform: 'translateY(-5px)'
-    }
+    background: "linear-gradient(135deg, #6B8DD6 0%, #8E37D7 100%)",
+    color: "white",
+    borderRadius: "15px",
+    boxShadow: "0 8px 32px rgba(31, 38, 135, 0.37)",
+    backdropFilter: "blur(4px)",
+    border: "1px solid rgba(255, 255, 255, 0.18)",
+    transition: "transform 0.3s ease",
+    "&:hover": {
+      transform: "translateY(-5px)",
+    },
   };
 
   const customDataGridStyle = {
-    border: 'none',
-    borderRadius: '15px',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-    '& .MuiDataGrid-cell': {
-      borderBottom: '1px solid #f0f0f0'
+    border: "none",
+    borderRadius: "15px",
+    boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+    "& .MuiDataGrid-cell": {
+      borderBottom: "1px solid #f0f0f0",
     },
-    '& .MuiDataGrid-columnHeaders': {
-      backgroundColor: '#f8f9fa',
-      borderRadius: '15px 15px 0 0'
-    }
+    "& .MuiDataGrid-columnHeaders": {
+      backgroundColor: "#f8f9fa",
+      borderRadius: "15px 15px 0 0",
+    },
   };
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
-      <Paper elevation={0} sx={{ p: 4, borderRadius: '20px', background: '#f8f9fa' }}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
+      <Paper
+        elevation={0}
+        sx={{ p: 4, borderRadius: "20px", background: "#f8f9fa" }}
+      >
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          mb={4}
+        >
           <Box display="flex" alignItems="center" gap={2}>
-            <DashboardIcon sx={{ fontSize: 40, color: '#8E37D7' }} />
+            <DashboardIcon sx={{ fontSize: 40, color: "#8E37D7" }} />
             <Typography variant="h4" fontWeight="700" color="primary">
               Communication Hub
             </Typography>
@@ -178,7 +182,7 @@ const UserDashboard = () => {
             color="error"
             startIcon={<LogoutIcon />}
             onClick={handleLogout}
-            sx={{ borderRadius: '12px', textTransform: 'none' }}
+            sx={{ borderRadius: "12px", textTransform: "none" }}
           >
             Sign Out
           </Button>
@@ -252,21 +256,21 @@ const UserDashboard = () => {
               }}
               rowSelectionModel={rowSelectionModel}
               sx={{
-                '& .MuiDataGrid-row:hover': {
-                  backgroundColor: 'rgba(142, 55, 215, 0.1)',
-                  transition: 'background-color 0.3s ease'
+                "& .MuiDataGrid-row:hover": {
+                  backgroundColor: "rgba(142, 55, 215, 0.1)",
+                  transition: "background-color 0.3s ease",
                 },
-                '& .MuiDataGrid-cell': {
-                  borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-                  padding: '16px',
+                "& .MuiDataGrid-cell": {
+                  borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
+                  padding: "16px",
                 },
-                '& .MuiDataGrid-columnHeaders': {
-                  backgroundColor: '#6B8DD6',
-                  color: '#fff',
-                  fontWeight: '600',
+                "& .MuiDataGrid-columnHeaders": {
+                  backgroundColor: "#6B8DD6",
+                  color: "#fff",
+                  fontWeight: "600",
                 },
-                '& .MuiDataGrid-footerContainer': {
-                  backgroundColor: '#f5f5f5',
+                "& .MuiDataGrid-footerContainer": {
+                  backgroundColor: "#f5f5f5",
                 },
               }}
             />
@@ -277,12 +281,12 @@ const UserDashboard = () => {
             onClick={handleCommunicationPerformed}
             sx={{
               mt: 3,
-              borderRadius: '12px',
-              textTransform: 'none',
-              background: 'linear-gradient(135deg, #6B8DD6 0%, #8E37D7 100%)',
-              '&:hover': {
-                background: 'linear-gradient(135deg, #5B7DC6 0%, #7E27C7 100%)'
-              }
+              borderRadius: "12px",
+              textTransform: "none",
+              background: "linear-gradient(135deg, #6B8DD6 0%, #8E37D7 100%)",
+              "&:hover": {
+                background: "linear-gradient(135deg, #5B7DC6 0%, #7E27C7 100%)",
+              },
             }}
           >
             Log New Communication
